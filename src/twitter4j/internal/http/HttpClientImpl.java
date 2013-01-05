@@ -222,8 +222,6 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 							os.close();
 							
 						}
-						
-						System.out.println("closed");
 					}
 					res = new HttpResponseImpl(con, CONF);
 					responseCode = con.getResponseCode();

@@ -19,6 +19,7 @@ package twitter4j.api;
 import twitter4j.ResponseList;
 import twitter4j.TwitterAPIConfiguration;
 import twitter4j.TwitterException;
+import twitter4j.internal.http.HttpClientWrapper;
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
@@ -33,6 +34,8 @@ public interface HelpMethods {
      * @since Twitter4J 1.0.4
      */
     boolean test() throws TwitterException;
+    
+    HttpClientWrapper getHttpClientWrapper();
 
     /**
      * Returns the current configuration used by Twitter including twitter.com slugs which are not usernames, maximum photo resolutions, and t.co URL lengths.</br>

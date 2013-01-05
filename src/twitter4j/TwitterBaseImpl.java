@@ -76,6 +76,10 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
         http.setHttpResponseListener(this);
         setFactory();
     }
+    
+    public HttpClientWrapper getHttpClientWrapper() {
+    	return http;
+    }
 
     protected void setFactory() {
         factory = new z_T4JInternalJSONImplFactory(conf);
