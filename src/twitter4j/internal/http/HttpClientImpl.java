@@ -138,9 +138,10 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 							boundary = "--" + boundary;
 							con.setDoOutput(true);
 							String requestString = "";
+							int fileBytes = 0;
 							for (final HttpParameter param : req.getParameters()) {
 								if (param.isFile()) {
-									requestString = boundary + "\r\n";
+									requestString += boundary + "\r\n";
 									requestString += "Content-Disposition: form-data; name=\"" + param.getName()
 											+ "\"; filename=\"" + param.getFile().getName() + "\"\r\n";
 									requestString += "Content-Type: " + param.getContentType() + "\r\n\r\n";
@@ -154,6 +155,14 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 										this.requestLength = param.getFile().length();
 										this.requestStatus = 0;
 									}
+									final BufferedInputStream in = new BufferedInputStream(
+											param.hasFileBody() ? param.getFileBody() : new FileInputStream(
+													param.getFile()));
+									byte[] buf = new byte[1024];  
+									int bytesRead;  
+									while ((bytesRead = in.read(buf)) != -1) { 
+										fileBytes += bytesRead;
+									}
 								}
 								else {
 									requestString += boundary + "\r\n";
@@ -161,13 +170,23 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 									requestString += "Content-Type: text/plain; charset=UTF-8\r\n\r\n";
 									requestString += param.getValue().getBytes("UTF-8");
 									requestString += "\r\n";
-								}
-								if (this.requestLength > 0) {
 									
-									//con.setFixedLengthStreamingMode((int)this.requestLength + requestString.length());
 								}
 							}
-							con.setChunkedStreamingMode(1024);
+							requestString += boundary + "--\r\n";
+							requestString += "\r\n";
+							if (this.requestLength > 0) {
+								if (req.getURL().contains("twitter.com") || req.getURL().contains("plixi") || req.getURL().contains("moby") || req.getURL().contains("lockerz")) {
+									con.setRequestProperty("Connection", "Keep-Alive");
+									con.setChunkedStreamingMode(1024);
+								}
+								else if (req.getURL().contains("img.ly")) {
+									int length = fileBytes + requestString.length();
+									con.setRequestProperty("Content-Length", String.valueOf(length));
+									con.setRequestProperty("Connection", "Keep-Alive");
+									con.setFixedLengthStreamingMode(length);
+								}
+							}
 							  
 							final DataOutputStream out = new DataOutputStream(con.getOutputStream());
 							for (final HttpParameter param : req.getParameters()) {
