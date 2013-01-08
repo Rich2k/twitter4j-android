@@ -227,6 +227,14 @@ public abstract class HttpResponse {
     }
 
     public abstract void disconnect() throws IOException;
+    
+    public long getContentLength() {
+		try {
+			return Long.parseLong(getResponseHeader("Content-Length"));
+		} catch (final Exception e) {
+			return -1;
+		}
+	}
 
     @Override
     public String toString() {
