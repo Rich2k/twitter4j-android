@@ -163,8 +163,8 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         setAsyncNumThreads(1);
         setContributingTo(-1L);
         setClientVersion(Version.getVersion());
-        setClientURL("http://twitter4j.org/en/twitter4j-" + Version.getVersion() + ".xml");
-        setUserAgent("twitter4j http://twitter4j.org/ /" + Version.getVersion());
+        setClientURL("http://www.tweetings.net/android/");
+        setUserAgent("Tweetings/Android (API Parser" + Version.getVersion() + ")");
 
         setJSONStoreEnabled(false);
 
