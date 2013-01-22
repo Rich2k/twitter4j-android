@@ -176,7 +176,7 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 							requestString += boundary + "--\r\n";
 							requestString += "\r\n";
 							if (this.requestLength > 0) {
-								if (req.getURL().contains("twitter.com") || req.getURL().contains("plixi") || req.getURL().contains("moby") || req.getURL().contains("lockerz")) {
+								if (req.getURL().contains("plixi") || req.getURL().contains("moby") || req.getURL().contains("lockerz")) {
 									con.setRequestProperty("Connection", "Keep-Alive");
 									con.setChunkedStreamingMode(1024);
 								}
@@ -278,10 +278,11 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 				// responseCode);
 					throw new TwitterException(ioe.getMessage(), ioe, responseCode);
 			} catch (final NullPointerException e) {
-				// This exception will be thown when URL is invalid.
-				//throw new TwitterException("The URL requested is invalid.", e);
+				// Bug http://code.google.com/p/android/issues/detail?id=5255
+				//throw new TwitterException("Please check your APN settings, make sure not to use WAP APNs.", e);
 			} catch (final OutOfMemoryError e) {
-				//throw new TwitterException(e.getMessage(), e);
+				//I don't know why this causes OOM, but it should be catched.
+				//throw new TwitterException("Unknown error", e);
 			}
 			try {
 				if (logger.isDebugEnabled() && res != null) {
