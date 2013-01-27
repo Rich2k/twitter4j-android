@@ -60,6 +60,8 @@ public interface Configuration extends HttpClientConfiguration
 
     int getHttpReadTimeout();
 
+    String getHttpClientImplementation();
+    
     int getHttpStreamingReadTimeout();
 
     int getHttpRetryCount();

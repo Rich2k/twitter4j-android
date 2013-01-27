@@ -339,6 +339,7 @@ public class HttpClientImpl extends HttpClientBase implements HttpClient, HttpRe
 		if (resolved_host != null && !host.equals(resolved_host)) {
 			con.setRequestProperty("Host", host);
 		}
+		
 		if (CONF.getHttpConnectionTimeout() > 0) {
 			con.setConnectTimeout(CONF.getHttpConnectionTimeout());
 		}

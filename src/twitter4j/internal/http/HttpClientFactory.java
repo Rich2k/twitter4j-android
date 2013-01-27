@@ -19,13 +19,27 @@ package twitter4j.internal.http;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import twitter4j.conf.Configuration;
+
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.2
  */
 public final class HttpClientFactory {
     
-	public static HttpClient getInstance(final HttpClientConfiguration conf) {
+	public static HttpClient getInstance(final Configuration conf) {
+		final String httpClientImplementation = conf.getHttpClientImplementation();
+		if (httpClientImplementation != null) {
+			try {
+				final Class<?> clz = Class.forName(httpClientImplementation);
+				final Constructor<?> constructor = clz.getConstructor(HttpClientConfiguration.class);
+				return (HttpClient) constructor.newInstance(conf);
+			} catch (final Exception e) {
+				e.printStackTrace();
+				// Falling back to default implementation.
+				return new HttpClientImpl(conf);
+			}
+		}
 		return new HttpClientImpl(conf);
 	}
 }

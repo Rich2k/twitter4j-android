@@ -17,6 +17,9 @@
 package twitter4j.conf;
 
 import twitter4j.Version;
+import twitter4j.internal.http.HttpClient;
+import twitter4j.internal.http.HttpClientConfiguration;
+import twitter4j.internal.http.HttpClientImpl;
 import twitter4j.internal.logging.Logger;
 import twitter4j.internal.util.z_T4JInternalStringUtil;
 
@@ -43,6 +46,8 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private int httpProxyPort;
     private int httpConnectionTimeout;
     private int httpReadTimeout;
+    
+    private String httpClientImplementation;
     
     private String signingRestBaseURL;
 
@@ -153,6 +158,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         setHttpReadTimeout(120000);
         setHttpStreamingReadTimeout(40 * 1000);
         setHttpRetryCount(0);
+        setHttpClientImplementation(null);
         setHttpRetryIntervalSeconds(5);
         setHttpMaxTotalConnections(20);
         setHttpDefaultMaxPerRoute(2);
@@ -268,6 +274,11 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     public final String getUser() {
         return user;
     }
+    
+    @Override
+	public String getHttpClientImplementation() {
+		return httpClientImplementation;
+	}
 
     protected final void setUser(String user) {
         this.user = user;
@@ -470,6 +481,20 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     protected final void setOAuthAccessTokenSecret(String oAuthAccessTokenSecret) {
         this.oAuthAccessTokenSecret = oAuthAccessTokenSecret;
     }
+    
+    public void setHttpClientImplementation(final Class<? extends HttpClient> httpClientImplementation) {
+		if (httpClientImplementation != null) {
+			try {
+				httpClientImplementation.getConstructor(HttpClientConfiguration.class);
+				this.httpClientImplementation = httpClientImplementation.getName();
+			} catch (final NoSuchMethodException e) {
+				this.httpClientImplementation = HttpClientImpl.class.getName();
+			}
+		} else {
+			this.httpClientImplementation = HttpClientImpl.class.getName();
+		}
+	}
+
 
     @Override
     public final int getAsyncNumThreads() {

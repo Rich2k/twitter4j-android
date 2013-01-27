@@ -18,6 +18,8 @@ package twitter4j.conf;
 
 import java.util.Properties;
 
+import twitter4j.internal.http.HttpClient;
+
 /**
  * A builder that can be used to construct a twitter4j configuration with desired settings.  This
  * builder has sensible defaults such that {@code new ConfigurationBuilder().build()} would create a
@@ -295,6 +297,12 @@ public final class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setHttpClientImplementation(final Class<? extends HttpClient> httpClientImplementation) {
+		checkNotBuilt();
+		configurationBean.setHttpClientImplementation(httpClientImplementation);
+		return this;
+	}
+    
     public Configuration build() {
         checkNotBuilt();
         configurationBean.cacheInstance();

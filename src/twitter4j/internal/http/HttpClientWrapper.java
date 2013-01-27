@@ -18,6 +18,7 @@ package twitter4j.internal.http;
 
 import twitter4j.TwitterException;
 import twitter4j.auth.Authorization;
+import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationContext;
 
 import java.util.HashMap;
@@ -31,14 +32,14 @@ import static twitter4j.internal.http.RequestMethod.*;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public final class HttpClientWrapper implements java.io.Serializable {
-    private final HttpClientWrapperConfiguration wrapperConf;
+    private final Configuration wrapperConf;
     private HttpClient http;
 
     private final Map<String, String> requestHeaders;
     private static final long serialVersionUID = -6511977105603119379L;
     private HttpResponseListener httpResponseListener;
 
-    public HttpClientWrapper(HttpClientWrapperConfiguration wrapperConf) {
+    public HttpClientWrapper(Configuration wrapperConf) {
         this.wrapperConf = wrapperConf;
         requestHeaders = wrapperConf.getRequestHeaders();
         http = HttpClientFactory.getInstance(wrapperConf);

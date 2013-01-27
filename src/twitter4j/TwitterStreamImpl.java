@@ -54,7 +54,7 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
     /*package*/
     TwitterStreamImpl(Configuration conf, Authorization auth) {
         super(conf, auth);
-        http = new HttpClientWrapper(new StreamingReadTimeoutConfiguration(conf));
+        http = new HttpClientWrapper(conf);
         stallWarningsGetParam = "stall_warnings=" + (conf.isStallWarningsEnabled() ? "true" : "false");
         stallWarningsParam = new HttpParameter("stall_warnings", conf.isStallWarningsEnabled());
     }
