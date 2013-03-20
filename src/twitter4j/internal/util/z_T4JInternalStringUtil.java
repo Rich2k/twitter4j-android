@@ -82,6 +82,11 @@ public class z_T4JInternalStringUtil {
         }
         return buf.toString();
     }
+    
+    public static String replaceLast(final String text, final String regex, final String replacement) {
+		if (text == null || regex == null || replacement == null) return text;
+		return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ")", replacement);
+	}
 
     public static String join(String[] track) {
         StringBuilder buf = new StringBuilder(11 * track.length);

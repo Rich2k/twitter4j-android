@@ -46,5 +46,6 @@ public interface Twitter extends java.io.Serializable,
         GeoMethods,
         LegalResources,
         NewTwitterMethods,
-        HelpMethods {
+        HelpMethods,
+        ActivityResources {
 }

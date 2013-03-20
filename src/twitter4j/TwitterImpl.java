@@ -23,6 +23,7 @@ import twitter4j.internal.http.HttpParameter;
 import twitter4j.internal.http.HttpResponse;
 import twitter4j.internal.org.json.JSONException;
 import twitter4j.internal.util.z_T4JInternalStringUtil;
+import static twitter4j.internal.util.z_T4JInternalStringUtil.replaceLast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -2231,7 +2232,48 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     public boolean test() throws TwitterException {
         return get(conf.getRestBaseURL() + "help/test.json").asString().contains("ok");
     }
+    
+    static final String ENDPOINT_ACTIVITY_ABOUT_ME = "activity/about_me.json";
+	static final String ENDPOINT_ACTIVITY_BY_FRIENDS = "activity/by_friends.json";
 
+    @Override
+	public ResponseList<Activity> getActivitiesAboutMe() throws TwitterException {
+		return getActivitiesAboutMe(null);
+	}
+
+	@Override
+	public ResponseList<Activity> getActivitiesAboutMe(final Paging paging) throws TwitterException {
+		ensureAuthorizationEnabled();
+		final String rest_base = conf.getRestBaseURL();
+		final String sign_rest_base = conf.getSigningRestBaseURL();
+		final String activity_base = rest_base.endsWith("/1/") || rest_base.endsWith("/1.1/") ? replaceLast(rest_base,
+				"\\/1(\\.1)?\\/", "/i/") : rest_base + "i/";
+		final String sign_activity_base = sign_rest_base.endsWith("/1/") || rest_base.endsWith("/1.1/") ? replaceLast(
+				sign_rest_base, "\\/1(\\.1)?\\/", "/i/") : sign_rest_base + "i/";
+		return factory.createActivityList(get(activity_base + ENDPOINT_ACTIVITY_ABOUT_ME, sign_activity_base
+				+ ENDPOINT_ACTIVITY_ABOUT_ME,
+				mergeParameters(paging != null ? paging.asPostParameterArray() : null, INCLUDE_ENTITIES)));
+	}
+
+	@Override
+	public ResponseList<Activity> getActivitiesByFriends() throws TwitterException {
+		return getActivitiesByFriends(null);
+	}
+
+	@Override
+	public ResponseList<Activity> getActivitiesByFriends(final Paging paging) throws TwitterException {
+		ensureAuthorizationEnabled();
+		final String rest_base = conf.getRestBaseURL();
+		final String sign_rest_base = conf.getSigningRestBaseURL();
+		final String activity_base = rest_base.endsWith("/1/") || rest_base.endsWith("/1.1/") ? replaceLast(rest_base,
+				"\\/1(\\.1)?\\/", "/i/") : rest_base + "i/";
+		final String sign_activity_base = sign_rest_base.endsWith("/1/") || rest_base.endsWith("/1.1/") ? replaceLast(
+				sign_rest_base, "\\/1(\\.1)?\\/", "/i/") : sign_rest_base + "i/";
+		return factory.createActivityList(get(activity_base + ENDPOINT_ACTIVITY_BY_FRIENDS, sign_activity_base
+				+ ENDPOINT_ACTIVITY_BY_FRIENDS,
+				mergeParameters(paging != null ? paging.asPostParameterArray() : null, INCLUDE_ENTITIES)));
+	}
+    
     /**
      * {@inheritDoc}
      */

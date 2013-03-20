@@ -347,4 +347,9 @@ public class z_T4JInternalJSONImplFactory implements z_T4JInternalFactory {
                 "conf=" + conf +
                 '}';
     }
+
+    @Override
+	public ResponseList<Activity> createActivityList(final HttpResponse res) throws TwitterException {
+		return ActivityJSONImpl.createActivityList(res, conf);
+	}
 }

@@ -77,6 +77,8 @@ public interface z_T4JInternalFactory extends java.io.Serializable {
     ResponseList<Friendship> createFriendshipList(HttpResponse res) throws TwitterException;
 
     AccountTotals createAccountTotals(HttpResponse res) throws TwitterException;
+    
+    ResponseList<Activity> createActivityList(final HttpResponse res) throws TwitterException;
 
     AccountSettings createAccountSettings(HttpResponse res) throws TwitterException;
 
