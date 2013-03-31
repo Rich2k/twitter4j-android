@@ -83,6 +83,8 @@ public interface ListMethods {
      */
     PagableResponseList<UserList> getUserLists(String listOwnerScreenName, long cursor)
             throws TwitterException;
+    PagableResponseList<UserList> getUserOwnLists(String listOwnerScreenName, long cursor)
+            throws TwitterException;
 
     /**
      * List the lists of the specified user. Private lists will be included if the authenticated users is the same as the user whose lists are being returned.
@@ -96,6 +98,8 @@ public interface ListMethods {
      * @since Twitter4J 2.2.3
      */
     PagableResponseList<UserList> getUserLists(long listOwnerUserId, long cursor)
+            throws TwitterException;
+    PagableResponseList<UserList> getUserOwnLists(long listOwnerUserId, long cursor)
             throws TwitterException;
 
     /**

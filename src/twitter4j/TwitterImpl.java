@@ -839,6 +839,22 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         }
         return factory.createAUserList(post(conf.getRestBaseURL() + "lists/update.json", httpParams.toArray(new HttpParameter[httpParams.size()])));
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PagableResponseList<UserList> getUserOwnLists(String listOwnerScreenName, long cursor) throws TwitterException {
+        return factory.createPagableUserListList(get(conf.getRestBaseURL() + "lists/ownerships.json?screen_name=" + listOwnerScreenName + "&cursor=" + cursor));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PagableResponseList<UserList> getUserOwnLists(long listOwnerUserId, long cursor) throws TwitterException {
+        return factory.createPagableUserListList(get(conf.getRestBaseURL() + "lists/ownerships.json?user_id=" + listOwnerUserId + "&cursor=" + cursor));
+    }
 
     /**
      * {@inheritDoc}
