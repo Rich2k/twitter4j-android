@@ -37,8 +37,8 @@ import java.util.*;
  * @since Twitter4J 2.1.8
  */
 abstract class AbstractImageUploadImpl implements ImageUpload {
-    public static final String TWITTER_VERIFY_CREDENTIALS_JSON = "https://api.twitter.com/1/account/verify_credentials.json";
-    public static final String TWITTER_VERIFY_CREDENTIALS_XML = "https://api.twitter.com/1/account/verify_credentials.xml";
+    public static final String TWITTER_VERIFY_CREDENTIALS_JSON = "https://api.twitter.com/1.1/account/verify_credentials.json";
+    public static final String TWITTER_VERIFY_CREDENTIALS_XML = "https://api.twitter.com/1.1/account/verify_credentials.xml";
 
     private HttpClientWrapper client;
 
