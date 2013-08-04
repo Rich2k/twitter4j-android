@@ -73,6 +73,11 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     private boolean translator;
     private int listedCount;
     private boolean isFollowRequestSent;
+    private UserMentionEntity[] userMentionEntities;
+    private URLEntity[] urlEntities;
+    private HashtagEntity[] hashtagEntities;
+    private MediaEntity[] mediaEntities;
+    
     private static final long serialVersionUID = -6345893237975349030L;
 
     /*package*/UserJSONImpl(HttpResponse res, Configuration conf) throws TwitterException {
@@ -131,6 +136,49 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
             profileBackgroundTiled = getBoolean("profile_background_tile", json);
             if (!json.isNull("profile_banner_url")) {
             	profileBannerImageUrl = getRawString("profile_banner_url", json);
+            }
+            if (!json.isNull("entities")) {
+                try {
+                    JSONObject entities = json.getJSONObject("entities");
+                    int len;
+                    if (!entities.isNull("user_mentions")) {
+                        JSONArray userMentionsArray = entities.getJSONArray("user_mentions");
+                        len = userMentionsArray.length();
+                        userMentionEntities = new UserMentionEntity[len];
+                        for (int i = 0; i < len; i++) {
+                            userMentionEntities[i] = new UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i));
+                        }
+
+                    }
+                    if (!entities.isNull("urls")) {
+                        JSONArray urlsArray = entities.getJSONArray("urls");
+                        len = urlsArray.length();
+                        urlEntities = new URLEntity[len];
+                        for (int i = 0; i < len; i++) {
+                            urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+                        }
+                    }
+
+                    if (!entities.isNull("hashtags")) {
+                        JSONArray hashtagsArray = entities.getJSONArray("hashtags");
+                        len = hashtagsArray.length();
+                        hashtagEntities = new HashtagEntity[len];
+                        for (int i = 0; i < len; i++) {
+                            hashtagEntities[i] = new HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i));
+                        }
+                    }
+
+                    if (!entities.isNull("media")) {
+                        JSONArray mediaArray = entities.getJSONArray("media");
+                        len = mediaArray.length();
+                        mediaEntities = new MediaEntity[len];
+                        for (int i = 0; i < len; i++) {
+                            mediaEntities[i] = new MediaEntityJSONImpl(mediaArray.getJSONObject(i));
+                        }
+                    }
+                } catch (JSONException jsone) {
+                    throw new TwitterException(jsone);
+                }
             }
             lang = getRawString("lang", json);
             statusesCount = getInt("statuses_count", json);
@@ -560,4 +608,37 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
                 ", isFollowRequestSent=" + isFollowRequestSent +
                 '}';
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserMentionEntity[] getUserMentionEntities() {
+        return userMentionEntities;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public URLEntity[] getURLEntities() {
+        return urlEntities;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HashtagEntity[] getHashtagEntities() {
+        return hashtagEntities;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MediaEntity[] getMediaEntities() {
+        return mediaEntities;
+    }
+
 }
