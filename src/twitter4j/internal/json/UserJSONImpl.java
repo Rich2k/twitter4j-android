@@ -150,14 +150,18 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
                         }
 
                     }
-                    if (!entities.isNull("urls")) {
-                        JSONArray urlsArray = entities.getJSONArray("urls");
-                        len = urlsArray.length();
-                        urlEntities = new URLEntity[len];
-                        for (int i = 0; i < len; i++) {
-                            urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+                    if (!entities.isNull("url")) {
+                    	JSONObject url = entities.getJSONObject("url");
+                    	if (!url.isNull("urls")) {
+                            JSONArray urlsArray = url.getJSONArray("urls");
+                            len = urlsArray.length();
+                            urlEntities = new URLEntity[len];
+                            for (int i = 0; i < len; i++) {
+                                urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+                            }
                         }
                     }
+                    
 
                     if (!entities.isNull("hashtags")) {
                         JSONArray hashtagsArray = entities.getJSONArray("hashtags");
@@ -165,15 +169,6 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
                         hashtagEntities = new HashtagEntity[len];
                         for (int i = 0; i < len; i++) {
                             hashtagEntities[i] = new HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i));
-                        }
-                    }
-
-                    if (!entities.isNull("media")) {
-                        JSONArray mediaArray = entities.getJSONArray("media");
-                        len = mediaArray.length();
-                        mediaEntities = new MediaEntity[len];
-                        for (int i = 0; i < len; i++) {
-                            mediaEntities[i] = new MediaEntityJSONImpl(mediaArray.getJSONObject(i));
                         }
                     }
                 } catch (JSONException jsone) {
