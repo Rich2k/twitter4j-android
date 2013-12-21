@@ -39,6 +39,13 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the id
      */
     long getId();
+    
+    /**
+     * returns the raw text
+     * 
+     * @return the raw text
+     */
+    String getRawText();
 
     /**
      * Returns the text of the status
@@ -144,6 +151,14 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the retweet count.
      */
     long getRetweetCount();
+    
+    /**
+     * Returns the number of times this tweet has been favorited, or -1 when the tweet was
+     * created before this feature was enabled.
+     *
+     * @return the retweet count.
+     */
+    long getFavoriteCount();
 
     /**
      * Returns true if the authenticating user has retweeted this tweet, or false when the tweet was

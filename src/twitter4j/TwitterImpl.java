@@ -35,6 +35,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
+
 import static twitter4j.internal.http.HttpParameter.getParameterArray;
 
 /**
@@ -1800,7 +1802,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites() throws TwitterException {
-    	ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json"));
     }
 
@@ -1809,7 +1811,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(int page) throws TwitterException {
-    	ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json?page=" + page));
     }
 
@@ -1818,7 +1820,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(String id) throws TwitterException {
-    	ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json?user_id=" + id));
     }
 
@@ -1827,7 +1829,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(String screen_name, int page) throws TwitterException {
-    	ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json?screen_name=" + screen_name + "&page=" + page));
     }
     
@@ -1836,7 +1838,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(long id, int page) throws TwitterException {
-    	ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json?user_id=" + String.valueOf(id) + "&page=" + page));
     }
 
@@ -1845,8 +1847,9 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(Paging paging) throws TwitterException {
-    	ensureOAuthEnabled();
-        return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json", paging.asPostParameterArray()));
+        ensureAuthorizationEnabled();
+        return factory.createStatusList(get(conf.getRestBaseURL()
+                + "favorites/list.json", paging.asPostParameterArray()));
     }
 
     /**
@@ -1854,7 +1857,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(String id, Paging paging) throws TwitterException {
-        ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json",mergeParameters(paging != null ? paging.asPostParameterArray() : null, new HttpParameter("screen_name", id))));
     }
     
@@ -1863,7 +1866,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getFavorites(long id, Paging paging) throws TwitterException {
-        ensureOAuthEnabled();
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "favorites/list.json",mergeParameters(paging != null ? paging.asPostParameterArray() : null, new HttpParameter("user_id", String.valueOf(id)))));
     }
 
@@ -2319,7 +2322,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
             HttpResponse response = null;
             long start = System.currentTimeMillis();
             try {
-                response = http.get(url, auth);
+            	response = http.get(url, auth);
             } finally {
                 long elapsedTime = System.currentTimeMillis() - start;
                 TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
@@ -2329,7 +2332,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     }
 
     private HttpResponse get(String url, HttpParameter[] params) throws TwitterException {
-        if (!conf.isMBeanEnabled()) {
+    	if (!conf.isMBeanEnabled()) {
             return http.get(url, mergeImplicitParams(params), auth);
         } else {
             // intercept HTTP call for monitoring purposes
@@ -2346,7 +2349,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     }
     
     private HttpResponse get(final String url, final String sign_url) throws TwitterException {
-		return get(url, sign_url, null);
+    	return get(url, sign_url, null);
 	}
 
 	private HttpResponse get(final String url, final String sign_url, final HttpParameter[] parameters)

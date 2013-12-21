@@ -509,7 +509,7 @@ public final class Query {
 		appendParameter("lang", lang, params);
 		appendParameter("locale", locale, params);
 		appendParameter("max_id", maxId, params);
-		appendParameter("rpp", rpp, params);
+		appendParameter("count", rpp, params);
 		appendParameter("page", page, params);
 		appendParameter("since", since, params);
 		appendParameter("since_id", sinceId, params);

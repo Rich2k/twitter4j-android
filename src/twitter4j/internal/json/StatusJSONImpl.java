@@ -41,6 +41,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     private Date createdAt;
     private long id;
     private String text;
+    private String rawText;
     private String source;
     private boolean isTruncated;
     private long inReplyToStatusId;
@@ -50,6 +51,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     private GeoLocation geoLocation = null;
     private Place place = null;
     private long retweetCount;
+    private long favoriteCount;
     private boolean wasRetweetedByMe;
     private boolean isPossiblySensitive;
 
@@ -86,6 +88,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
 
     private void init(JSONObject json) throws TwitterException {
         id = getLong("id", json);
+        rawText = getRawString("text", json);
         text = getUnescapedString("text", json);
         source = getUnescapedString("source", json);
         createdAt = getDate("created_at", json);
@@ -96,6 +99,8 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
         isPossiblySensitive = getBoolean("possibly_sensitive", json);
         inReplyToScreenName = getUnescapedString("in_reply_to_screen_name", json);
         retweetCount = getLong("retweet_count", json);
+        favoriteCount = getLong("favorite_count", json);
+        
         try {
             if (!json.isNull("user")) {
                 user = new UserJSONImpl(json.getJSONObject("user"));
@@ -224,6 +229,11 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     @Override
     public long getId() {
         return this.id;
+    }
+    
+    @Override
+    public String getRawText() {
+            return this.rawText;
     }
 
     /**
@@ -368,6 +378,14 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     public long getRetweetCount() {
         return retweetCount;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getFavoriteCount() {
+        return favoriteCount;
+    }
 
     /**
      * {@inheritDoc}
@@ -468,6 +486,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
                 ", geoLocation=" + geoLocation +
                 ", place=" + place +
                 ", retweetCount=" + retweetCount +
+                ", favoriteCount=" + favoriteCount +
                 ", wasRetweetedByMe=" + wasRetweetedByMe +
                 ", contributors=" + (contributorsIDs == null ? null : Arrays.asList(contributorsIDs)) +
                 ", annotations=" + annotations +
