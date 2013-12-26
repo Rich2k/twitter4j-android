@@ -43,6 +43,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
     private static final long serialVersionUID = -7104233663827757577L;
     private long id;
     private String text;
+    private String rawText;
     private long senderId;
     private long recipientId;
     private Date createdAt;
@@ -69,6 +70,7 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
 
     private void init(JSONObject json) throws TwitterException {
         id = getLong("id", json);
+        rawText = getRawString("text", json);
         text = getUnescapedString("text", json);
         senderId = getLong("sender_id", json);
         recipientId = getLong("recipient_id", json);
@@ -126,6 +128,11 @@ import static twitter4j.internal.util.z_T4JInternalParseUtil.*;
         return id;
     }
 
+    @Override
+    public String getRawText() {
+        return this.rawText;
+    }
+    
     /**
      * {@inheritDoc}
      */

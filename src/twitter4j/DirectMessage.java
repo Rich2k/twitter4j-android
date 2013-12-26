@@ -26,6 +26,13 @@ import java.util.Date;
 public interface DirectMessage extends TwitterResponse, EntitySupport, java.io.Serializable {
 
     long getId();
+    
+    /**
+     * returns the raw text
+     * 
+     * @return the raw text
+     */
+    String getRawText();
 
     String getText();
 
