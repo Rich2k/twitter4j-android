@@ -190,28 +190,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public ResponseList<Status> getHomeTimelinev1() throws
-            TwitterException {
-        ensureAuthorizationEnabled();
-        
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/home_timeline.json", new HttpParameter[] { INCLUDE_MY_RETWEET }));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getHomeTimelinev1(Paging paging) throws
-            TwitterException {
-        ensureAuthorizationEnabled();
-  
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/home_timeline.json", mergeParameters(paging.asPostParameterArray(), new HttpParameter[]{INCLUDE_MY_RETWEET})));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public ResponseList<Status> getUserTimeline(String screenName, Paging paging)
             throws TwitterException {
         return factory.createStatusList(get(conf.getRestBaseURL()
@@ -268,67 +246,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() +
                 "statuses/user_timeline.json",
-                mergeParameters(new HttpParameter[]{INCLUDE_MY_RETWEET}
-                        , paging.asPostParameterArray())));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1(String screenName, Paging paging)
-            throws TwitterException {
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/user_timeline.json",
-                mergeParameters(new HttpParameter[]{new HttpParameter("screen_name", screenName)
-                        , INCLUDE_MY_RETWEET}
-                        , paging.asPostParameterArray())));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1(long userId, Paging paging)
-            throws TwitterException {
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/user_timeline.json",
-                mergeParameters(new HttpParameter[]{new HttpParameter("user_id", userId)
-                        , INCLUDE_MY_RETWEET}
-                        , paging.asPostParameterArray())));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1(String screenName) throws TwitterException {
-        return getUserTimelinev1(screenName, new Paging());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1(long userId) throws TwitterException {
-        return getUserTimelinev1(userId, new Paging());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1() throws
-            TwitterException {
-        return getUserTimelinev1(new Paging());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getUserTimelinev1(Paging paging) throws
-            TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/user_timeline.json",
                 mergeParameters(new HttpParameter[]{INCLUDE_MY_RETWEET}
                         , paging.asPostParameterArray())));
     }
@@ -416,24 +333,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
                 + "statuses/mentions_timeline.json", paging.asPostParameterArray()));
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getMentionsv1() throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/mentions.json"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<Status> getMentionsv1(Paging paging) throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createStatusList(get("https://api.twitter.com/1/statuses/mentions.json", paging.asPostParameterArray()));
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -573,36 +472,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     public Status showStatus(long id) throws TwitterException {
         return factory.createStatus(get(conf.getRestBaseURL() + "statuses/show/" + id + ".json"));
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Status showStatusv1(long id) throws TwitterException {
-        return factory.createStatus(get("https://api.twitter.com/1/statuses/show/" + id + ".json"));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Status updateStatusv1(String status) throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createStatus(post("https://api.twitter.com/1/statuses/update.json",
-                new HttpParameter[]{new HttpParameter("status", status)}));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Status updateStatusv1(StatusUpdate status) throws TwitterException {
-        ensureAuthorizationEnabled();
-        String url = status.isWithMedia() ?
-                "https://upload.twitter.com/1/statuses/update_with_media.json" :
-                "https://api.twitter.com/1/statuses/update.json";
-        return factory.createStatus(post(url, status.asHttpParameterArray()));
-    }
 
     /**
      * {@inheritDoc}
@@ -648,15 +517,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public Status retweetStatusv1(long statusId) throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createStatus(post("https://api.twitter.com/1/statuses/retweet/" + statusId + ".json"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public ResponseList<Status> getRetweets(long statusId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "statuses/retweets/" + statusId
@@ -664,23 +524,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     }
 
     /* User Methods */
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User showUserv1(String screenName) throws TwitterException {
-        return factory.createUser(get("https://api.twitter.com/1/users/show.json?screen_name=" + screenName));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public User showUserv1(long userId) throws TwitterException {
-        return factory.createUser(get("https://api.twitter.com/1/users/show.json?user_id=" + userId));
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -917,8 +760,9 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      */
     @Override
     public ResponseList<Status> getUserListStatuses(int listId, Paging paging) throws TwitterException {
+    	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "lists/statuses.json"
-                , mergeParameters(paging.asPostParameterArray(Paging.SMCP, Paging.PER_PAGE)
+                , mergeParameters(paging.asPostParameterArray()
                 , new HttpParameter("list_id", listId))));
     }
 
@@ -928,7 +772,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     @Override
     public ResponseList<Status> getUserListStatuses(long ownerId, String slug, Paging paging) throws TwitterException {
         return factory.createStatusList(get(conf.getRestBaseURL() + "lists/statuses.json"
-                , mergeParameters(paging.asPostParameterArray(Paging.SMCP, Paging.PER_PAGE)
+                , mergeParameters(paging.asPostParameterArray()
                 , new HttpParameter[]{new HttpParameter("owner_id", ownerId)
                 , new HttpParameter("slug", slug)})));
     }
@@ -1241,25 +1085,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public ResponseList<DirectMessage> getDirectMessagesv1(Paging paging) throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createDirectMessageList(get("https://api.twitter.com/1/direct_messages.json"
-                , paging.asPostParameterArray()));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<DirectMessage> getDirectMessagesv1() throws TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createDirectMessageList(get("https://api.twitter.com/1/direct_messages.json"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public ResponseList<DirectMessage> getDirectMessages(Paging paging) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createDirectMessageList(get(conf.getRestBaseURL() + "direct_messages.json"
@@ -1286,26 +1111,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         ensureAuthorizationEnabled();
         return factory.createDirectMessageList(get(conf.getRestBaseURL() +
                 "direct_messages/sent.json", paging.asPostParameterArray()));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<DirectMessage> getSentDirectMessagesv1() throws
-            TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createDirectMessageList(get("https://api.twitter.com/1/direct_messages/sent.json"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ResponseList<DirectMessage> getSentDirectMessagesv1(Paging paging) throws
-            TwitterException {
-        ensureAuthorizationEnabled();
-        return factory.createDirectMessageList(get("https://api.twitter.com/1/direct_messages/sent.json", paging.asPostParameterArray()));
     }
 
     /**
@@ -2056,15 +1861,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         return factory.createSavedSearchList(get(conf.getRestBaseURL() + "saved_searches/list.json"));
     }
     
-    /**
-    * {@inheritDoc}
-    */
-   @Override
-   public ResponseList<SavedSearch> getSavedSearchesv1() throws TwitterException {
-       ensureAuthorizationEnabled();
-       return factory.createSavedSearchList(get("https://api.twitter.com/1/saved_searches.json"));
-   }
-
     /**
      * {@inheritDoc}
      */

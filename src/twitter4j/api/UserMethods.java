@@ -32,8 +32,7 @@ public interface UserMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/users/show">GET users/show | Twitter Developers</a>
      */
     User showUser(String screenName) throws TwitterException;
-    User showUserv1(String screenName) throws TwitterException;
-
+    
     /**
      * Returns extended information of a given user, specified by ID or screen name as per the required id parameter. The author's most recent status will be returned inline.
      * <br>This method calls http://api.twitter.com/1/users/show.json
@@ -45,8 +44,7 @@ public interface UserMethods {
      * @since Twitter4J 2.1.0
      */
     User showUser(long userId) throws TwitterException;
-    User showUserv1(long userId) throws TwitterException;
-
+    
     /**
      * Return up to 100 users worth of extended information, specified by either ID, screen name, or combination of the two. The author's most recent status (if the authenticating user has permission) will be returned inline.
      * <br>This method calls http://api.twitter.com/1/users/lookup.json

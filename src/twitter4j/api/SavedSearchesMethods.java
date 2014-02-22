@@ -34,8 +34,7 @@ public interface SavedSearchesMethods {
      * @since Twitter4J 2.0.8
      */
     ResponseList<SavedSearch> getSavedSearches() throws TwitterException;
-    ResponseList<SavedSearch> getSavedSearchesv1() throws TwitterException;
-
+    
     /**
      * Retrieve the data for a saved search owned by the authenticating user specified by the given id.
      * <br>This method calls http://api.twitter.com/1/saved_searches/show/:id.json

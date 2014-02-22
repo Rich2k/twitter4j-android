@@ -35,8 +35,6 @@ public interface DirectMessageMethods {
      */
     ResponseList<DirectMessage> getDirectMessages()
             throws TwitterException;
-    ResponseList<DirectMessage> getDirectMessagesv1()
-            throws TwitterException;
 
     /**
      * Returns a list of the direct messages sent to the authenticating user.
@@ -49,9 +47,7 @@ public interface DirectMessageMethods {
      */
     ResponseList<DirectMessage> getDirectMessages(Paging paging)
             throws TwitterException;
-    ResponseList<DirectMessage> getDirectMessagesv1(Paging paging)
-            throws TwitterException;
-
+    
     /**
      * Returns a list of the direct messages sent by the authenticating user.
      * <br>This method calls http://api.twitter.com/1/direct_messages/sent
@@ -62,9 +58,7 @@ public interface DirectMessageMethods {
      */
     ResponseList<DirectMessage> getSentDirectMessages()
             throws TwitterException;
-    ResponseList<DirectMessage> getSentDirectMessagesv1()
-            throws TwitterException;
-
+    
     /**
      * Returns a list of the direct messages sent by the authenticating user.
      * <br>This method calls http://api.twitter.com/1/direct_messages/sent
@@ -77,9 +71,6 @@ public interface DirectMessageMethods {
      */
     ResponseList<DirectMessage> getSentDirectMessages(Paging paging)
             throws TwitterException;
-    ResponseList<DirectMessage> getSentDirectMessagesv1(Paging paging)
-            throws TwitterException;
-
 
     /**
      * Sends a new direct message to the specified user from the authenticating user.  Requires both the user and text parameters below.

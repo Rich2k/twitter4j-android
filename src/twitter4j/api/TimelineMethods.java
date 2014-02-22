@@ -36,9 +36,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.10
      */
     ResponseList<Status> getHomeTimeline() throws TwitterException;
-    ResponseList<Status> getHomeTimelinev1() throws TwitterException;
-
-
+    
     /**
      * Returns the 20 most recent statuses, including retweets, posted by the authenticating user and that user's friends. This is the equivalent of /timeline/home on the Web.<br>
      * Usage note: This home_timeline call is identical to statuses/friends_timeline, except that home_timeline also contains retweets, while statuses/friends_timeline does not for backwards compatibility reasons. In a future version of the API, statuses/friends_timeline will be deprected and replaced by home_timeline.
@@ -51,8 +49,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.10
      */
     ResponseList<Status> getHomeTimeline(Paging paging) throws TwitterException;
-    ResponseList<Status> getHomeTimelinev1(Paging paging) throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -67,8 +64,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.1
      */
     ResponseList<Status> getUserTimeline(String screenName, Paging paging) throws TwitterException;
-    ResponseList<Status> getUserTimelinev1(String screenName, Paging paging) throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -83,8 +79,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.1.0
      */
     ResponseList<Status> getUserTimeline(long userId, Paging paging) throws TwitterException;
-    ResponseList<Status> getUserTimelinev1(long userId, Paging paging) throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -97,8 +92,7 @@ public interface TimelineMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/statuses/user_timeline">GET statuses/user_timeline | Twitter Developers</a>
      */
     ResponseList<Status> getUserTimeline(String screenName) throws TwitterException;
-    ResponseList<Status> getUserTimelinev1(String screenName) throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -112,8 +106,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.1.0
      */
     ResponseList<Status> getUserTimeline(long userId) throws TwitterException;
-    ResponseList<Status> getUserTimelinev1(long userId) throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -125,8 +118,7 @@ public interface TimelineMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/statuses/user_timeline">GET statuses/user_timeline | Twitter Developers</a>
      */
     ResponseList<Status> getUserTimeline() throws TwitterException;
-    ResponseList<Status> getUserTimelinev1() throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
      * This is the equivalent of the Web / page for your own user, or the profile page for a third party.<br>
@@ -140,7 +132,6 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.1
      */
     ResponseList<Status> getUserTimeline(Paging paging) throws TwitterException;
-    ResponseList<Status> getUserTimelinev1(Paging paging) throws TwitterException;
     
     /**
      * Returns the 20 most recent statuses posted from the authenticating user. It's also possible to request another user's timeline via the id parameter.<br>
@@ -235,8 +226,7 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.1
      */
     ResponseList<Status> getMentions() throws TwitterException;
-    ResponseList<Status> getMentionsv1() throws TwitterException;
-
+    
     /**
      * Returns the 20 most recent mentions (status containing @username) for the authenticating user.
      * <br>This method calls http://api.twitter.com/1/statuses/mentions
@@ -248,7 +238,6 @@ public interface TimelineMethods {
      * @since Twitter4J 2.0.1
      */
     ResponseList<Status> getMentions(Paging paging) throws TwitterException;
-    ResponseList<Status> getMentionsv1(Paging paging) throws TwitterException;
     
     /**
      * Returns the 20 most recent retweets posted by the authenticating user.

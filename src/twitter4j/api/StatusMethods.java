@@ -33,8 +33,7 @@ public interface StatusMethods {
      * @since Twitter4J 2.0.1
      */
     Status showStatus(long id) throws TwitterException;
-    Status showStatusv1(long id) throws TwitterException;
-
+    
     /**
      * Updates the authenticating user's status. A status update with text identical to the authenticating user's text identical to the authenticating user's current status will be ignored to prevent duplicates.
      * <br>This method calls http://api.twitter.com/1/statuses/update
@@ -46,8 +45,7 @@ public interface StatusMethods {
      * @since Twitter4J 2.0.1
      */
     Status updateStatus(String status) throws TwitterException;
-    Status updateStatusv1(String status) throws TwitterException;
-
+    
     /**
      * Updates the authenticating user's status. A status update with text identical to the authenticating user's text identical to the authenticating user's current status will be ignored to prevent duplicates.
      * <br>This method calls http://api.twitter.com/1/statuses/update or<br>
@@ -60,8 +58,7 @@ public interface StatusMethods {
      * @since Twitter4J 2.1.1
      */
     Status updateStatus(StatusUpdate latestStatus) throws TwitterException;
-    Status updateStatusv1(StatusUpdate latestStatus) throws TwitterException;
-
+    
     /**
      * Destroys the status specified by the required ID parameter.<br>
      * Usage note: The authenticating user must be the author of the specified status.
@@ -86,8 +83,7 @@ public interface StatusMethods {
      * @since Twitter4J 2.0.10
      */
     Status retweetStatus(long statusId) throws TwitterException;
-    Status retweetStatusv1(long statusId) throws TwitterException;
-
+    
     /**
      * Returns up to 100 of the first retweets of a given tweet.
      * <br>This method calls http://api.twitter.com/1/statuses/retweets
