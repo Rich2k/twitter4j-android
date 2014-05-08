@@ -36,7 +36,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/members">GET lists/members | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    PagableResponseList<User> getUserListMembers(int listId, long cursor)
+    PagableResponseList<User> getUserListMembers(long listId, long cursor)
             throws TwitterException;
 
     /**
@@ -65,7 +65,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/members/create">POST lists/members/create | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    UserList addUserListMember(int listId, long userId) throws TwitterException;
+    UserList addUserListMember(long listId, long userId) throws TwitterException;
 
     /**
      * Adds a member to a list. The authenticated user must own the list to be able to add members to it. Lists are limited to having 500 members.
@@ -91,7 +91,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/members/create_all">POST lists/members/create_all | Twitter Developers</a>
      * @since Twitter4J 2.1.7
      */
-    UserList addUserListMembers(int listId, long[] userIds) throws TwitterException;
+    UserList addUserListMembers(long listId, long[] userIds) throws TwitterException;
 
     /**
      * Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
@@ -115,7 +115,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/members/create_all">POST lists/members/create_all | Twitter Developers</a>
      * @since Twitter4J 2.1.7
      */
-    UserList addUserListMembers(int listId, String[] screenNames) throws TwitterException;
+    UserList addUserListMembers(long listId, String[] screenNames) throws TwitterException;
 
     /**
      * Adds multiple members to a list, by specifying a comma-separated list of member ids or screen names. The authenticated user must own the list to be able to add members to it. Lists are limited to having 500 members, and you are limited to adding up to 100 members to a list at a time with this method.
@@ -140,7 +140,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/members/destroy">POST lists/members/destroy | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    UserList deleteUserListMember(int listId, long userId) throws TwitterException;
+    UserList deleteUserListMember(long listId, long userId) throws TwitterException;
 
     /**
      * Removes the specified member from the list. The authenticated user must be the list's owner to remove members from the list.
@@ -168,7 +168,7 @@ public interface ListMembersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/members/show">GET lists/members/show | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    User showUserListMembership(int listId, long userId) throws TwitterException;
+    User showUserListMembership(long listId, long userId) throws TwitterException;
 
     /**
      * Check if a user is a member of the specified list.<br>

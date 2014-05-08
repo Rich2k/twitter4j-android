@@ -36,7 +36,7 @@ public interface ListSubscribersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/subscribers">GET lists/subscribers | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    PagableResponseList<User> getUserListSubscribers(int listId, long cursor) throws TwitterException;
+    PagableResponseList<User> getUserListSubscribers(long listId, long cursor) throws TwitterException;
 
     /**
      * Returns the subscribers of the specified list.
@@ -62,7 +62,7 @@ public interface ListSubscribersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/subscribers/create">POST lists/subscribers/create | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    UserList createUserListSubscription(int listId) throws TwitterException;
+    UserList createUserListSubscription(long listId) throws TwitterException;
 
     /**
      * Make the authenticated user follow the specified list.
@@ -87,7 +87,7 @@ public interface ListSubscribersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/subscribers/destroy">POST lists/subscribers/destroy | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    UserList destroyUserListSubscription(int listId) throws TwitterException;
+    UserList destroyUserListSubscription(long listId) throws TwitterException;
 
     /**
      * Unsubscribes the authenticated user form the specified list.
@@ -114,7 +114,7 @@ public interface ListSubscribersMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/subscribers/show">GET lists/subscribers/show | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    User showUserListSubscription(int listId, long userId) throws TwitterException;
+    User showUserListSubscription(long listId, long userId) throws TwitterException;
 
     /**
      * Check if the specified user is a subscriber of the specified list.

@@ -50,7 +50,7 @@ public interface ListMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/update ">POST lists/update | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    UserList updateUserList(int listId, String newListName, boolean isPublicList, String newDescription)
+    UserList updateUserList(long listId, String newListName, boolean isPublicList, String newDescription)
             throws TwitterException;
 
     /**
@@ -112,7 +112,7 @@ public interface ListMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/show">https://dev.twitter.com/docs/api/1/get/lists/show | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    UserList showUserList(int listId) throws TwitterException;
+    UserList showUserList(long listId) throws TwitterException;
 
     /**
      * Show the specified list. Private lists will only be shown if the authenticated user owns the specified list.
@@ -137,7 +137,7 @@ public interface ListMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/post/lists/destroy">POST lists/destroy | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    UserList destroyUserList(int listId) throws TwitterException;
+    UserList destroyUserList(long listId) throws TwitterException;
 
     /**
      * Deletes the specified list. Must be owned by the authenticated user.
@@ -163,7 +163,7 @@ public interface ListMethods {
      * @see <a href="https://dev.twitter.com/docs/api/1/get/lists/statuses">GET lists/statuses | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    ResponseList<Status> getUserListStatuses(int listId, Paging paging)
+    ResponseList<Status> getUserListStatuses(long listId, Paging paging)
             throws TwitterException;
 
     /**

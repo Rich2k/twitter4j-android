@@ -172,6 +172,11 @@ public interface User extends Comparable<User>, TwitterResponse, EntitySupport, 
      * @since Twitter4J 2.1.9
      */
     boolean isTranslator();
+    
+    /**
+     * @return returns true if the user is following this account
+     */
+    boolean isFollowing();
 
     /**
      * Returns the number of public lists the user is listed on, or -1

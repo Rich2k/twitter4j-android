@@ -658,7 +658,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList updateUserList(int listId, String newListName, boolean isPublicList, String newDescription) throws TwitterException {
+    public UserList updateUserList(long listId, String newListName, boolean isPublicList, String newDescription) throws TwitterException {
         return updateUserList(newListName, isPublicList, newDescription, new HttpParameter("list_id", listId));
     }
 
@@ -721,7 +721,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList showUserList(int listId) throws TwitterException {
+    public UserList showUserList(long listId) throws TwitterException {
         return factory.createAUserList(get(conf.getRestBaseURL() + "lists/show.json?list_id=" + listId));
     }
 
@@ -738,7 +738,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList destroyUserList(int listId) throws TwitterException {
+    public UserList destroyUserList(long listId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() + "lists/destroy.json",
                 new HttpParameter[]{new HttpParameter("list_id", listId)}));
@@ -759,7 +759,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public ResponseList<Status> getUserListStatuses(int listId, Paging paging) throws TwitterException {
+    public ResponseList<Status> getUserListStatuses(long listId, Paging paging) throws TwitterException {
     	ensureAuthorizationEnabled();
         return factory.createStatusList(get(conf.getRestBaseURL() + "lists/statuses.json"
                 , mergeParameters(paging.asPostParameterArray()
@@ -864,7 +864,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public PagableResponseList<User> getUserListMembers(int listId
+    public PagableResponseList<User> getUserListMembers(long listId
             , long cursor) throws TwitterException {
         return factory.createPagableUserList(get(conf.getRestBaseURL() +
                 "lists/members.json?list_id=" + listId + "&cursor=" + cursor));
@@ -883,7 +883,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList addUserListMember(int listId, long userId) throws TwitterException {
+    public UserList addUserListMember(long listId, long userId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() +
                 "lists/members/create.json", new HttpParameter[]{new HttpParameter("user_id", userId)
@@ -905,7 +905,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList addUserListMembers(int listId, long[] userIds) throws TwitterException {
+    public UserList addUserListMembers(long listId, long[] userIds) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() + "lists/members/create_all.json",
                 new HttpParameter[]{new HttpParameter("list_id", listId), new HttpParameter("user_id"
@@ -927,7 +927,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList addUserListMembers(int listId, String[] screenNames) throws TwitterException {
+    public UserList addUserListMembers(long listId, String[] screenNames) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() +
                 "lists/members/create_all.json",
@@ -952,7 +952,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList deleteUserListMember(int listId, long userId) throws TwitterException {
+    public UserList deleteUserListMember(long listId, long userId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() +
                 "lists/members/destroy.json",
@@ -974,7 +974,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public User showUserListMembership(int listId, long userId) throws TwitterException {
+    public User showUserListMembership(long listId, long userId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createUser(get(conf.getRestBaseURL() +
                 "lists/members/show.json?list_id=" + listId + "&user_id=" + userId));
@@ -996,7 +996,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public PagableResponseList<User> getUserListSubscribers(int listId, long cursor) throws TwitterException {
+    public PagableResponseList<User> getUserListSubscribers(long listId, long cursor) throws TwitterException {
         return factory.createPagableUserList(get(conf.getRestBaseURL() + "lists/subscribers.json?list_id=" + listId + "&cursor=" + cursor));
     }
 
@@ -1013,7 +1013,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList createUserListSubscription(int listId) throws TwitterException {
+    public UserList createUserListSubscription(long listId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() +
                 "lists/subscribers/create.json", new HttpParameter[]{new HttpParameter("list_id", listId)}));
@@ -1034,7 +1034,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public UserList destroyUserListSubscription(int listId) throws TwitterException {
+    public UserList destroyUserListSubscription(long listId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createAUserList(post(conf.getRestBaseURL() +
                 "lists/subscribers/destroy.json", new HttpParameter[]{new HttpParameter("list_id", listId)}));
@@ -1054,7 +1054,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
      * {@inheritDoc}
      */
     @Override
-    public User showUserListSubscription(int listId, long userId) throws TwitterException {
+    public User showUserListSubscription(long listId, long userId) throws TwitterException {
         ensureAuthorizationEnabled();
         return factory.createUser(get(conf.getRestBaseURL() +
                 "lists/subscribers/show.json?list_id=" + listId + "&user_id=" + userId));
